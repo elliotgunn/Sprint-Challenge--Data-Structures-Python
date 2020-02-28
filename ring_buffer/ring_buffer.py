@@ -9,34 +9,46 @@ class RingBuffer:
 
     def append(self, item):
 
-        # if max storage already, overwrite
+        # case 1: if have not reached max capacity, add
+        # use DLL length to check capacity
+        # then add item to tail as it is the newest element
+        # now, point current to the newest addition???
+        if self.storage.length < self.capacity:
+            self.storage.add_to_tail(item)
+            self.current = self.storage.tail 
+
+        # case 2: if reached max, then overwrite
         if self.storage.length == self.capacity:
+
+            # fix current to the item
             self.current.value = item
 
-            if self.current == self.storage.tail:
+            # if pointer is pointing at tail, 
+            # meaning it has reached the end of the DLL
+            # then replace the oldest with the newest
+
+            # if pointer has not reached the tail yet,
+            # i.e. if d != c
+            # then keep going
+            # until c = c
+            if self.current is self.storage.tail:
+                # set the current value to the head as the newest addition
                 self.current = self.storage.head
             else:
                 self.current = self.current.next
 
-        else:
-            # just add to tail
-            self.storage.add_to_tail(item)
-            # make the pointer add to the latest addition
-            self.current = self.storage.tail
-            
     def get(self):
-        # like the get_max() function
         # Note:  This is the only [] allowed
         list_buffer_contents = []
 
-        #look at the head first as it is the oldest
+        # set pointer to the head/oldest
         current = self.storage.head
 
+        # as long as list isn't empty
         while current != None:
-            # go to next node
             list_buffer_contents.append(current)
             current = current.next
-            
+
         return list_buffer_contents
 
 
