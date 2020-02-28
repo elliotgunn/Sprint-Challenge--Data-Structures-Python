@@ -43,21 +43,27 @@ class LinkedList:
     return False
 
   def reverse_list(self):
-    # TO BE COMPLETED
+
+    # set current to the first one
+    # set prev to None, as just starting out
     current = self.head
     prev = None
 
-    while current:
-      # get the next node
+    while current != None:
+      # first, save next pointer
       next = current.get_next()
 
-      # now change the next node reference to a new next, the prev node
+      # second, point current.next to prev
       current.set_next(prev)
 
-      # move along
-      prev = current
-      current = next
-    
-    # last one
+      # move along 
+      prev = current 
+      current = next 
+
+    # when the while loop has finished
+    # prev is sitting at the new head (the "end" now the "start" of the SLL)
+    # so assign the new head to prev
     self.head = prev
+
+# best resource: https://www.youtube.com/watch?v=O0By4Zq0OFc
     
